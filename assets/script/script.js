@@ -33,12 +33,38 @@ function handleSaveTask() {
 
 
 // audit div time
+function updateColor() {
+    // timefromtask is now.diff(hourid)
+    var now = JSON.parse(moment().format("HH"));
+    console.log(now);
+    
+    $(".time-block").each( function() {
+        
+        var hourId = $(this).attr("id");
+        
+        // if hour has elapsed, red backround for description
+        if (hourId == now) {
+            $(this).children(".description").addClass("present");
+        }
+        // if hour is current, grey background
+        if (hourId < now) {
+            $(this).children(".description").addClass("past");
+        }
+        // if hour is upcoming, green background
+        if (hourId > now) {
+            $(this).children(".description").addClass("future");
+        }
+     })
+}
 
-    // if hour has elapsed, grey backround
+function updateTimer () {
+    // get min of current time
+    var min = moment().format('mm');
+    if (min == 0) {
+        updateColor();
+    }
+}
 
-    // if hour is current, red background
-
-    // if hour is upcoming, green background
 
 // on page load
     // populate todays date
@@ -52,3 +78,4 @@ function handleSaveTask() {
 // listeners
 $(".time-block").on("click", ".description", handleEditTask);
 $(".time-block").on("click", ".saveBtn", handleSaveTask);
+setInterval(updateTimer, 1000 * 10)
