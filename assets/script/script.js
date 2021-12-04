@@ -6,27 +6,30 @@ var scheduleEl = $('#schedule');
 
 // edit task 
 function handleEditTask() {
-    console.log(this);
     var taskText = $(this).text().trim();
-    var taskInput = $("<textarea>").addClass("form-control").val(taskText);
+    var taskInput = $("<textarea>").addClass("col task form-control").val(taskText);
 
-    // on click, focus on text area
+    // change p to textarea for input, focus on text area
     $(this).replaceWith(taskInput);
     taskInput.trigger("focus"); 
 };
 
 // save changes to local storage
-/* function handleSaveTask() {
-    var hourId = $(this).closest(".hourBlock").attr("id");
-    var newTaskText = $(this).val();
-    var taskText = $("<p>").addClass("col task").text(newTaskText);
+function handleSaveTask() {
+    // console.log(this);
+    var taskInput = $(this).siblings(".task");
+    var hourId = $(this).closest(".time-block").attr("id");
+    // console.log(hourId);
+    // var newTaskText = taskInput.val();
+    var taskText = $("<p>").addClass("col description").text(taskInput.val().trim());
+    // console.log(taskText);
 
     // convert back to p
-    $(this).replaceWith(taskText);
+    taskInput.replaceWith(taskText);
 
     // push text area input to local storage as obj
-    localStorage.setItem(hourId, newTaskText);
-} */
+    localStorage.setItem(hourId, taskInput.val());
+};
 
 
 // audit div time
@@ -47,5 +50,5 @@ function handleEditTask() {
 
 
 // listeners
-$(".hourBlock").on("click", ".task", handleEditTask);
-$(".hourBlock").on("click", ".saveBtn", handleSaveTask);
+$(".time-block").on("click", ".description", handleEditTask);
+$(".time-block").on("click", ".saveBtn", handleSaveTask);
