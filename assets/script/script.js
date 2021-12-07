@@ -21,7 +21,7 @@ function handleSaveTask() {
     var hourId = $(this).closest(".time-block").attr("id");
     // console.log(hourId);
     // var newTaskText = taskInput.val();
-    var taskText = $("<p>").addClass("col description").text(taskInput.val().trim());
+    var taskText = $("<p>").addClass("col description border border-dark").text(taskInput.val().trim());
     // console.log(taskText);
 
     // convert back to p
@@ -78,4 +78,5 @@ function updateTimer () {
 // listeners
 $(".time-block").on("click", ".description", handleEditTask);
 $(".time-block").on("click", ".saveBtn", handleSaveTask);
+updateColor();
 setInterval(updateTimer, 1000 * 10)
