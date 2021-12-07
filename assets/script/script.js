@@ -1,8 +1,8 @@
 var dateEl = $('#currentDay');
-var scheduleEl = $('#schedule');
+// var scheduleEl = $('#schedule');
 
-    // add todays date to page
-    dateEl.text(moment().format("dddd, MMMM Do YYYY"));
+// add todays date to page
+dateEl.text(moment().format("dddd, MMMM Do YYYY"));
 
 // edit task 
 function handleEditTask() {
@@ -16,18 +16,16 @@ function handleEditTask() {
 
 // save changes to local storage
 function handleSaveTask() {
-    // console.log(this);
     var taskInput = $(this).siblings(".task");
     var hourId = $(this).closest(".time-block").attr("id");
-    // console.log(hourId);
-    // var newTaskText = taskInput.val();
-    var taskText = $("<p>").addClass("col description border border-dark").text(taskInput.val().trim());
-    // console.log(taskText);
+    var taskText = $("<p>")
+    .addClass("col description border border-dark")
+    .text(taskInput.val().trim());
 
     // convert back to p
     taskInput.replaceWith(taskText);
 
-    // push text area input to local storage as obj
+    // save new task description to local storage
     localStorage.setItem(hourId, taskInput.val());
 };
 
@@ -76,6 +74,7 @@ function updateTimer () {
 
 
 // listeners
+// $("document").ready(pageLoad);
 $(".time-block").on("click", ".description", handleEditTask);
 $(".time-block").on("click", ".saveBtn", handleSaveTask);
 updateColor();
