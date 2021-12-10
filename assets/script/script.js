@@ -115,18 +115,6 @@ function printStoredTasks() {
 
 }
 
-// function findObjectByKey(array, key, value) {
-//     for (var i = 0; i < array.length; i++) {
-//         if (array[i][key] === value) {
-//             console.log(array[i]);
-//         }
-//     }
-//     console.log('yo');
-// }
-// var storedTasksArr = JSON.parse(localStorage.getItem("tasks"));
-// findObjectByKey(storedTasksArr, 'time', '13')
-
-
 // listeners
 $("document").ready(pageLoad);
 $(".time-block").on("click", ".description", handleEditTask);
