@@ -27,7 +27,6 @@ function handleSaveTask() {
 
     // send task obj to tasks arr
     tasks.push(taskObj);
-    console.log(tasks);
     // convert back to p
     taskInput.replaceWith(taskText);
     updateColor();
@@ -76,8 +75,9 @@ function pageLoad() {
     dateEl.text(moment().format("dddd, MMMM Do YYYY"));
 
     // populate tasks from local storage
-    printStoredTasks();
     updateColor();
+    printStoredTasks();
+    
 }
 
 
@@ -91,7 +91,9 @@ function printStoredTasks() {
     if (storedTasksArr[0].date < now) {
         console.log('past');
     } else {
-        // else:
+        // else: push storage into global tasks array
+        tasks.push(storedTasksArr);
+        console.log(tasks);
         // iterate through stored tasks to print to correct div
         for (var i = 0; i < storedTasksArr.length; i++) {
             var taskText = $('#' + storedTasksArr[i]['time']).children('p.description');
