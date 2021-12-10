@@ -1,6 +1,6 @@
 var dateEl = $('#currentDay');
 var tasks = [];
-// var scheduleEl = $('#schedule');
+// console.log(tasks);
 
 // edit task 
 function handleEditTask() {
@@ -26,14 +26,14 @@ function handleSaveTask() {
     }
 
     // send task obj to tasks arr
-    tasks = tasks.push(taskObj);
+    tasks.push(taskObj);
     console.log(tasks);
     // convert back to p
     taskInput.replaceWith(taskText);
     updateColor();
 
     // save new task description to local storage
-    localStorage.setItem("tasks", tasks);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
 };
 
 
@@ -76,22 +76,55 @@ function pageLoad() {
     dateEl.text(moment().format("dddd, MMMM Do YYYY"));
 
     // populate tasks from local storage
-    handleStoredTasks();
+    printStoredTasks();
     updateColor();
 }
 
 
 
 // local storage to page
-function handleStoredTasks() {
-    console.log("hi!");
-    // clear storage every 24 hours (9am?)
-    // if today is after date value in obj then remove
+function printStoredTasks() {
+    var storedTasksArr = JSON.parse(localStorage.getItem("tasks"));
+    console.log(storedTasksArr);
+    var now = moment().format("dddd, MMMM Do YYYY");
+    // if tasks are old, clear storage
+    if (storedTasksArr[0].date < now) {
+        console.log('past');
+    } else {
+        // else:
+        // iterate through stored tasks to print to correct div
+        for (var i = 0; i < storedTasksArr.length; i++) {
+            var taskText = $('#' + storedTasksArr[i]['time']).children('p.description');
+            taskText.text(storedTasksArr[i].description);
+        }
+    }
+    // var now = moment().format("dddd, MMMM Do YYYY");
+    /* $('.description').each(storedTasksArr, function() { console.log(this.time)
+        // var taskEl = $('#' + storedTasksArr[i].time).siblings('.decription');
+        // console.log(taskEl);
+        // if date value is past, clear local storage
+        if (date > now) {
+            console.log('get rid of it!');
+        } else {
+            console.log(tasks);
+            // storedTasks[]
+        }
+    })*/
+
     // else print to page on load, push to tasks array
 
 }
 
-
+// function findObjectByKey(array, key, value) {
+//     for (var i = 0; i < array.length; i++) {
+//         if (array[i][key] === value) {
+//             console.log(array[i]);
+//         }
+//     }
+//     console.log('yo');
+// }
+// var storedTasksArr = JSON.parse(localStorage.getItem("tasks"));
+// findObjectByKey(storedTasksArr, 'time', '13')
 
 
 // listeners
