@@ -1,11 +1,10 @@
 var dateEl = $('#currentDay');
-var tasks = [];
-// console.log(tasks);
+var tasks;
 
 // edit task 
 function handleEditTask() {
     var taskText = $(this).text().trim();
-    var taskInput = $("<textarea>").addClass("col task form-control").val(taskText);
+    var taskInput = $("<textarea>").addClass("description col task form-control").val(taskText);
 
     // change p to textarea for input, focus on text area
     $(this).replaceWith(taskInput);
@@ -26,7 +25,12 @@ function handleSaveTask() {
     }
 
     // send task obj to tasks arr
-    tasks.push(taskObj);
+    if (!tasks){
+        tasks = [taskObj];
+    } else {
+        tasks.push(taskObj);
+    }
+    // tasks.push(taskObj);
     // convert back to p
     taskInput.replaceWith(taskText);
     updateColor();
@@ -34,7 +38,6 @@ function handleSaveTask() {
     // save new task description to local storage
     localStorage.setItem("tasks", JSON.stringify(tasks));
 };
-
 
 // audit div time
 function updateColor() {
@@ -73,50 +76,40 @@ function updateTimer() {
 function pageLoad() {
     // add todays date to page
     dateEl.text(moment().format("dddd, MMMM Do YYYY"));
-
+    var storedTasksArr = JSON.parse(localStorage.getItem('tasks'));
+    if (storedTasksArr) {
+        tasks = storedTasksArr;
+        console.log(tasks);
+    };
+    console.log(tasks);
     // populate tasks from local storage
     updateColor();
     printStoredTasks();
-    
 }
 
 
 
 // local storage to page
 function printStoredTasks() {
-    var storedTasksArr = JSON.parse(localStorage.getItem("tasks"));
-    console.log(storedTasksArr);
-    var now = moment().format("dddd, MMMM Do YYYY");
-    // if tasks are old, clear storage
-    if (storedTasksArr[0]['date'] < now) {
-        console.log('past');
-    } else {
-        // else: push storage into global tasks array
-        tasks.push(storedTasksArr);
-        console.log(tasks);
-        // iterate through stored tasks to print to correct div
-        for (var i = 0; i < storedTasksArr.length; i++) {
-            var taskText = $('#' + storedTasksArr[i]['time']).children('.description');
-            taskText.text(storedTasksArr[i]['description']);
+    if (localStorage.getItem('tasks')) {
+        var storedTasksArr = JSON.parse(localStorage.getItem("tasks"));
+        var now = moment().format("dddd, MMMM Do YYYY");
+
+        // if tasks are old, clear storage
+        if (storedTasksArr && storedTasksArr[0]['date'] < now) {
+            console.log('past');
+            localStorage.clear();
+        } else {
+            // else:
+            // iterate through stored tasks to print to correct div
+            for (var i = 0; i < storedTasksArr.length; i++) {
+                var taskText = $('#' + storedTasksArr[i]['time']).children('.description');
+                taskText.text(storedTasksArr[i]['description']);
+            }
         }
     }
-    // var now = moment().format("dddd, MMMM Do YYYY");
-    /* $('.description').each(storedTasksArr, function() { console.log(this.time)
-        // var taskEl = $('#' + storedTasksArr[i].time).siblings('.decription');
-        // console.log(taskEl);
-        // if date value is past, clear local storage
-        if (date > now) {
-            console.log('get rid of it!');
-        } else {
-            console.log(tasks);
-            // storedTasks[]
-        }
-    })*/
-
-    // else print to page on load, push to tasks array
-
 }
-
+    
 // listeners
 $("document").ready(pageLoad);
 $(".time-block").on("click", ".description", handleEditTask);
