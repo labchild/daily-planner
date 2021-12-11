@@ -42,7 +42,7 @@ function handleSaveTask() {
 // audit div time
 function updateColor() {
 
-    var now = JSON.parse(moment().format("HH"));
+    var now = moment().format("HH");
 
     $(".time-block").each(function () {
 
