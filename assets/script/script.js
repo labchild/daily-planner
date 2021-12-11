@@ -88,7 +88,7 @@ function printStoredTasks() {
     console.log(storedTasksArr);
     var now = moment().format("dddd, MMMM Do YYYY");
     // if tasks are old, clear storage
-    if (storedTasksArr[0].date < now) {
+    if (storedTasksArr[0]['date'] < now) {
         console.log('past');
     } else {
         // else: push storage into global tasks array
@@ -96,8 +96,8 @@ function printStoredTasks() {
         console.log(tasks);
         // iterate through stored tasks to print to correct div
         for (var i = 0; i < storedTasksArr.length; i++) {
-            var taskText = $('#' + storedTasksArr[i]['time']).children('p.description');
-            taskText.text(storedTasksArr[i].description);
+            var taskText = $('#' + storedTasksArr[i]['time']).children('.description');
+            taskText.text(storedTasksArr[i]['description']);
         }
     }
     // var now = moment().format("dddd, MMMM Do YYYY");
