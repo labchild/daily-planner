@@ -95,17 +95,19 @@ function printStoredTasks() {
         var storedTasksArr = JSON.parse(localStorage.getItem("tasks"));
         var now = moment().format("DD/MM/YYYY");
 
-        // if tasks are old, clear storage
+        // if tasks are today, add to page
         if (storedTasksArr && storedTasksArr[0]['date'] == now) {
-            console.log('past');
-            // localStorage.clear();
-        } else {
-            // else:
             // iterate through stored tasks to print to correct div
             for (var i = 0; i < storedTasksArr.length; i++) {
                 var taskText = $('#' + storedTasksArr[i]['time']).children('.description');
                 taskText.text(storedTasksArr[i]['description']);
             }
+            console.log('still today');
+            
+        } else {
+            // else: clear stoage
+             console.log('past')
+            localStorage.clear();
         }
     }
 }
