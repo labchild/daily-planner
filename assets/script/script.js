@@ -21,8 +21,9 @@ function handleSaveTask() {
     var taskObj = {
         time: hourId,
         description: taskInput.val().trim(),
-        date: dateEl.text()
+        date: moment().format('DD/MM/YYYY')
     }
+    console.log(taskObj);
 
     // send task obj to tasks arr
     if (!tasks){
@@ -92,12 +93,12 @@ function pageLoad() {
 function printStoredTasks() {
     if (localStorage.getItem('tasks')) {
         var storedTasksArr = JSON.parse(localStorage.getItem("tasks"));
-        var now = moment().format("dddd, MMMM Do YYYY");
+        var now = moment().format("DD/MM/YYYY");
 
         // if tasks are old, clear storage
-        if (storedTasksArr && storedTasksArr[0]['date'] < now) {
+        if (storedTasksArr && storedTasksArr[0]['date'] == now) {
             console.log('past');
-            localStorage.clear();
+            // localStorage.clear();
         } else {
             // else:
             // iterate through stored tasks to print to correct div
