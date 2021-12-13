@@ -30,7 +30,7 @@ function handleSaveTask() {
     } else {
         tasks.push(taskObj);
     }
-    // tasks.push(taskObj);
+    
     // convert back to p
     taskInput.replaceWith(taskText);
     updateColor();
@@ -79,9 +79,8 @@ function pageLoad() {
     var storedTasksArr = JSON.parse(localStorage.getItem('tasks'));
     if (storedTasksArr) {
         tasks = storedTasksArr;
-        console.log(tasks);
     };
-    console.log(tasks);
+    
     // populate tasks from local storage
     updateColor();
     printStoredTasks();
