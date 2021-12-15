@@ -23,7 +23,6 @@ function handleSaveTask() {
         description: taskInput.val().trim(),
         date: moment().format('DD/MM/YYYY')
     }
-    console.log(taskObj);
 
     // send task obj to tasks arr
     if (!tasks){
@@ -118,4 +117,4 @@ $("document").ready(pageLoad);
 $(".time-block").on("click", ".description", handleEditTask);
 $(".time-block").on("click", ".saveBtn", handleSaveTask);
 
-setInterval(updateTimer, 1000 * 10)
+setInterval(updateTimer, 1000 * 60 * 10);
