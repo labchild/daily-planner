@@ -106,8 +106,9 @@ function printStoredTasks() {
             
         } else {
             // else: clear stoage
-             console.log('past')
+            console.log('past')
             localStorage.clear();
+            tasks = [];
         }
     }
 }
