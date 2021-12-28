@@ -25,9 +25,9 @@ A calendar web app to keep track of tasks and events happening that day.
 
 
 ## Links
-You can check out the deployed site [here]().
+You can check out the deployed site [here](https://labchild.github.io/daily-planner/).
 
-You can view my code and download the repo [here]().
+You can view my code and download the repo [here](https://github.com/labchild/daily-planner).
 
 ## Contact
 Written and deployed by Lelah Bates Childs.
